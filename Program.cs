@@ -1,2 +1,2 @@
 ﻿//Init Dragan
-Console.WriteLine("Hello, World!");
+Console.WriteLine($"{DateTime.Now.Year}");

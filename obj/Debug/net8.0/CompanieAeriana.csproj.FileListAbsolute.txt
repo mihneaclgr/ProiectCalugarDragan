@@ -1,0 +1,15 @@
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.GeneratedMSBuildEditorConfig.editorconfig
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.AssemblyInfoInputs.cache
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.AssemblyInfo.cs
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.csproj.CoreCompileInputs.cache
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.sourcelink.json
+E:\POO\CompanieAeriana\bin\Debug\net8.0\CompanieAeriana.exe
+E:\POO\CompanieAeriana\bin\Debug\net8.0\CompanieAeriana.deps.json
+E:\POO\CompanieAeriana\bin\Debug\net8.0\CompanieAeriana.runtimeconfig.json
+E:\POO\CompanieAeriana\bin\Debug\net8.0\CompanieAeriana.dll
+E:\POO\CompanieAeriana\bin\Debug\net8.0\CompanieAeriana.pdb
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.dll
+E:\POO\CompanieAeriana\obj\Debug\net8.0\refint\CompanieAeriana.dll
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.pdb
+E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.genruntimeconfig.cache
+E:\POO\CompanieAeriana\obj\Debug\net8.0\ref\CompanieAeriana.dll
