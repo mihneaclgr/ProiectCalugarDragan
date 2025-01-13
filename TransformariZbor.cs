@@ -2,17 +2,15 @@
 
 public class TransformariZbor
 {
-    public string ZborToString()
+    public string ZborToString(Zbor zbor)
     {
         string cod = "";
-        Zbor zbor = new Zbor();
         return cod;
     }
 
-    public Zbor StringtoZbor()
+    public Zbor StringtoZbor(string s)
     {
-        string cod = "";
-        Zbor zbor = new Zbor(/*argumente*/);
+        Zbor zbor = new Zbor();
         return zbor;
     }
 }

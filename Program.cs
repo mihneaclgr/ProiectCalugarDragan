@@ -2,17 +2,31 @@
 
 Companie companie = new Companie("NovaGrup");
 
+List<Zbor> zboruri = new List<Zbor>();
 
+string[] zboruri_string = File.ReadAllText(@"..\..\..\Lista_zboruri.txt").Split("\n");
+
+for (int i = 0; i < zboruri_string.Length; i++)
+{
+    string s = zboruri_string[i];
+    zboruri.Append(companie.transformariZbor.StringtoZbor(s));
+}
+       
 
 void MeniuGuest()
 {
     Console.Clear();
     Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
     Console.WriteLine("Lista zborurilor disponibile:\n");
-    
-    foreach (Zbor zbor in )
+
+    int i = 0;
+    foreach (Zbor zbor in zboruri)
     {
-        Console.WriteLine($"Plecare din: {zbor.ruta.getPlecareDin()}, Destinatie: {zbor.ruta.getDestinatie()}");
+        i++;
+        Console.WriteLine($"{i})\n      " +
+                          $"{zbor.GetRuta().getPlecareDin()} - {zbor.GetRuta().getDestinatie()}\n"+
+                          $"In data de: {zbor.data.ToString()} la ora {zbor.data.TimeOfDay.ToString()}\n"+
+                          $"Locuri disponibile: {zbor.locuriDisponibile}\n");
     }
     
     Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
@@ -150,4 +164,4 @@ void MeniuAdmin()
 
 
 
-MeniuLogin();       
+MeniuLogin();
