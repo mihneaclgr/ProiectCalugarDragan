@@ -17,4 +17,14 @@ public class Ruta
     {
         return km;
     }
+
+    public string getPlecareDin()
+    {
+        return plecare;
+    }
+
+    public string getDestinatie()
+    {
+        return destinatie;
+    }
 }

@@ -2,6 +2,22 @@
 
 Companie companie = new Companie("NovaGrup");
 
+void MeniuGuest()
+{
+    Console.Clear();
+    Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
+    Console.WriteLine("Lista zborurilor disponibile:\n");
+
+    foreach (Zbor zbor in companie.ZboruriDisponibile)
+    {
+        Console.WriteLine($"Plecare din: {zbor.ruta.getPlecareDin()}, Destinatie: {zbor.ruta.getDestinatie()}");
+    }
+    
+    Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
+    Console.ReadKey();
+    MeniuLogin();
+}
+
 void MeniuLogin()
 {
     Console.Clear();
@@ -111,6 +127,8 @@ void MeniuLogin()
         
         //continua ca Guest
         case 3:
+            Console.Clear();
+            MeniuGuest();
             break;
         
         

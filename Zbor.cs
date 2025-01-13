@@ -3,17 +3,18 @@
 public class Zbor
 {
     private string cod;
-    private int oraPlecarii;
+    internal DateTime oraPlecarii;
     private double durataZbor;
     private int capacitateAvion;
-    private int locuriDisponibile;
-    private Ruta ruta;
+    internal int locuriDisponibile;
+    internal Ruta ruta;
     private Avion avion;
 
-    public Zbor(string cod, int oraPlecarii, double durataZbor, int capacitateAvion, int locuriDisponibile, Ruta ruta, Avion avion)
+    public Zbor(string cod, DateTime data, double durataZbor, int capacitateAvion, int locuriDisponibile, Ruta ruta, Avion avion)
     {
         this.cod = cod;
-        this.oraPlecarii = oraPlecarii;
+        this.data = data;
+        this.oraPlecarii = DateTime.Now;
         this.durataZbor = durataZbor;
         this.capacitateAvion = capacitateAvion;
         this.locuriDisponibile = locuriDisponibile;
@@ -61,5 +62,10 @@ public class Zbor
         }
 
         return -1;
+    }
+
+    public Ruta GetRuta()
+    {
+        return ruta;
     }
 }
