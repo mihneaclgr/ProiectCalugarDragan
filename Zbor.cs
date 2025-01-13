@@ -7,14 +7,18 @@ public class Zbor
     private double durataZbor;
     private int capacitateAvion;
     private int locuriDisponibile;
+    private Ruta ruta;
+    private Avion avion;
 
-    public Zbor(string cod, int oraPlecarii, double durataZbor, int capacitateAvion, int locuriDisponibile)
+    public Zbor(string cod, int oraPlecarii, double durataZbor, int capacitateAvion, int locuriDisponibile, Ruta ruta, Avion avion)
     {
         this.cod = cod;
         this.oraPlecarii = oraPlecarii;
         this.durataZbor = durataZbor;
         this.capacitateAvion = capacitateAvion;
         this.locuriDisponibile = locuriDisponibile;
+        this.ruta = ruta;
+        this.avion = avion;
     }
 
     static bool ValideazaCod(string cod)
@@ -27,21 +31,17 @@ public class Zbor
             return false;
         }
 
-        // Verificam daca primele doua caractere sunt litere
-        for (i = 0; i < 2; i++)
+        if (cod[0..1] != "RO" || cod[0..1] != "IN")
         {
-            if (!char.IsLetter(cod[i]))
-            {
-                Console.WriteLine("Code type: 'RO123'/'IN123'");
-                return false;
-            }
+            Console.WriteLine("Invalid format!");
+            return false;
         }
-        
-        // Verificam daca ultimele trei caractere sunt cifre
-        for (i = 2; i < 5; i++)
+
+        for (i = 2; i < 4; i++)
         {
-            if (!char.IsDigit(cod[i]))
+            if (cod[i] < '0' || cod[i] > '9')
             {
+                Console.WriteLine("Invalid format!");
                 return false;
             }
         }
@@ -49,8 +49,17 @@ public class Zbor
         return true;
     }
 
-    public void PretZbor()
+    public double PretZbor()
     {
-        
+        if (cod[0..1] == "RO")
+        {
+            return 50 + 0.5 * ruta.getKM();
+        }
+        else if (cod[0..1] == "IN")
+        {
+            return 200 + ruta.getKM();
+        }
+
+        return -1;
     }
 }
