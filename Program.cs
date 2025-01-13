@@ -2,6 +2,8 @@
 
 Companie companie = new Companie("NovaGrup");
 
+
+
 void MeniuGuest()
 {
     Console.Clear();
@@ -137,13 +139,10 @@ void MeniuLogin()
             break;
     }
 }
-
-
 void Meniu()
 {
     
 }
-
 void MeniuAdmin()
 {
     
