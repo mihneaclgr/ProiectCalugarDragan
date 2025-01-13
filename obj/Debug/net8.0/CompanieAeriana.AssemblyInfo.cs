@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CompanieAeriana")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a7c7f01b5684c4ec4ceac549c80fda1b31f92d04")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f185e5acb0dae8c25651ae12f1806d64b609c573")]
 [assembly: System.Reflection.AssemblyProductAttribute("CompanieAeriana")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CompanieAeriana")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -7,8 +7,8 @@ void MeniuGuest()
     Console.Clear();
     Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
     Console.WriteLine("Lista zborurilor disponibile:\n");
-
-    foreach (Zbor zbor in companie.ZboruriDisponibile)
+    
+    foreach (Zbor zbor in )
     {
         Console.WriteLine($"Plecare din: {zbor.ruta.getPlecareDin()}, Destinatie: {zbor.ruta.getDestinatie()}");
     }

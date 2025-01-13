@@ -1,6 +1,6 @@
 ﻿namespace CompanieAeriana;
 
-public class Companie
+public class Companie : TransformariZbor
 {
     private string nume;
     private List<Avion> avioane;

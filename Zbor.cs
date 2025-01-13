@@ -3,7 +3,7 @@
 public class Zbor
 {
     private string cod;
-    internal DateTime oraPlecarii;
+    internal DateTime data;
     private double durataZbor;
     private int capacitateAvion;
     internal int locuriDisponibile;
@@ -20,6 +20,11 @@ public class Zbor
         this.locuriDisponibile = locuriDisponibile;
         this.ruta = ruta;
         this.avion = avion;
+    }
+
+    public Zbor()
+    {
+        
     }
 
     static bool ValideazaCod(string cod)
@@ -68,4 +73,6 @@ public class Zbor
     {
         return ruta;
     }
+    
+    
 }
