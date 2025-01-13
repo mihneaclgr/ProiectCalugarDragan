@@ -12,4 +12,9 @@ public class Ruta
         this.destinatie = destinatie;
         this.km = km;
     }
+
+    public int getKM()
+    {
+        return km;
+    }
 }
