@@ -4,12 +4,12 @@ namespace CompanieAeriana;
 
 public class Pasager
 {
-    private string nume;
-    private string CNP;
+    private string nume,prenume;
+    private string cnp;
     private List<Rezervare> istoric_rezervari;
     private Cont cont;
     
-    bool CNPisValid(string cnp)
+    internal bool CNPisValid()
     {
         int sex, an, luna, zi, judet, cod, control;
         if (cnp.Length != 13) return false;
@@ -34,18 +34,22 @@ public class Pasager
         if (zi == 0 || zi > 31) return false;
 
         if (luna == 2) //februarie, vad de an bisect
-        {
-            if (DateTime.IsLeapYear(an))
-                if (zi > 29)
-                    return false;
+            if (an % 4 != 0)
+                if (zi > 28) return false;
                 else ;
             else 
-                if (zi > 28) return false;
-        }
-        
-        else if (luna == 4 || luna == 6 || luna == 9 || luna == 11)
-            if (zi > 30) return false;
-            else ;
+                if (an % 100 != 0)
+                    if (zi > 29) return false;
+                    else ;
+                else 
+                    if (an % 400 != 0)
+                        if (zi > 28) return false;
+                        else ;
+                    else ;
+        else 
+            if (luna == 4 || luna == 6 || luna == 9 || luna == 11) 
+                if (zi > 30) return false;
+                else ;
     
         judet = int.Parse(cnp[7..9]);
         if ( !((judet >= 1 && judet <= 46) || judet == 51 || judet == 52) ) return false;
@@ -71,12 +75,20 @@ public class Pasager
         return true;
     }
 
-    public Pasager(string nume, string CNP, Cont cont)
+    internal Pasager(string nume,string prenume, string CNP, Cont cont)
     {
         this.nume = nume;
-        this.CNP = CNP;
+        this.prenume = prenume;
+        this.cnp = CNP;
         this.istoric_rezervari = new List<Rezervare>();
         this.cont = cont;
+    }
+
+    internal Pasager(string nume, string prenume,string cnp)
+    {
+        this.nume = nume;
+        this.prenume = prenume;
+        this.cnp = cnp;
     }
     
     

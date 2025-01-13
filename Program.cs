@@ -10,17 +10,74 @@ void MeniuLogin()
     Console.WriteLine("Alegeti o optiune: ");
     int option = Convert.ToInt32(Console.ReadLine());
 
+    Cont cont;
+    string username;
+    string parola;
     switch (option)
     {
+        //creare cont
         case 1:
-            break;
+            Console.Clear();
+            Console.WriteLine("\n~~~~ Creare cont ~~~~\n\n");
+            
+
+            string nume,prenume,cnp;
+            
+            Console.WriteLine("Nume: ");
+            nume = Console.ReadLine();
+            Console.WriteLine("Prenume: ");
+            prenume = Console.ReadLine();
+
+            Pasager pasager;
+            do
+            {
+                Console.WriteLine("CNP: ");
+                cnp = Console.ReadLine();
+                pasager = new Pasager(nume, prenume, cnp);
+                if (!pasager.CNPisValid())
+                {
+                    Console.WriteLine("CNP invalid: \nReincercati?\n1)DA\n2)NU\nOptiunea aleasa: ");
+                    int opt = Convert.ToInt32(Console.ReadLine());
+                    if (opt != 1) 
+                        MeniuLogin();
+                }
+            } while (!pasager.CNPisValid());
+
+            do
+            {
+                Console.WriteLine("Nume de utilizator: ");
+                username = Console.ReadLine();
+                if (!companie.UsernameDisponibil(username))
+                {
+                    Console.WriteLine("Doriti sa reincercati?\n1) DA\n2) NU\n\n");
+                    int option2 = Convert.ToInt32(Console.ReadLine());
+                    if (option2 != 1)
+                    {
+                        MeniuLogin();
+                    } 
+                }
+            } while (!companie.UsernameDisponibil(username));
+            
+            Console.WriteLine("Parola: ");
+            parola = Console.ReadLine();
+            
+            cont = new Cont(nume, parola);
+            pasager = new Pasager(nume, prenume, cnp, cont);
+            companie.AddCont(cont);
+
+            Console.WriteLine("Cont creat cu succes!\nApasati orice tasta pentru a intra in meniul principal...");
+            Console.ReadKey();
+            Meniu();
+
+
+            break; //
+        
+        //intrare in cont
         case 2:
             Console.Clear();
             Console.WriteLine("\n~~~~ Accesare cont ~~~~\n\n");
-            Cont cont;
             do
             {
-                string username, parola;
                 Console.WriteLine("Nume de utilizator: ");
                 username = Console.ReadLine();
                 Console.WriteLine("Parola: ");
@@ -41,13 +98,39 @@ void MeniuLogin()
                     }
                 }
             } while (!companie.ContInLista(cont));
+
+            if (cont.username == "admin")
+            {
+                MeniuAdmin();
+            }
+            else
+            {
+                Meniu();
+            }
             break;
+        
+        //continua ca Guest
         case 3:
             break;
+        
+        
         default:
             Console.WriteLine("Optiune invalida!");
             break;
     }
 }
+
+
+void Meniu()
+{
+    
+}
+
+void MeniuAdmin()
+{
+    
+}
+
+
 
 MeniuLogin();       

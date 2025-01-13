@@ -2,7 +2,7 @@
 
 public class Cont
 {
-    private string username;
+    internal string username;
     private string password;
 
     public Cont(string username, string password)
