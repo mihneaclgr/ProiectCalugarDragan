@@ -13,3 +13,18 @@ E:\POO\CompanieAeriana\obj\Debug\net8.0\refint\CompanieAeriana.dll
 E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.pdb
 E:\POO\CompanieAeriana\obj\Debug\net8.0\CompanieAeriana.genruntimeconfig.cache
 E:\POO\CompanieAeriana\obj\Debug\net8.0\ref\CompanieAeriana.dll
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\bin\Debug\net8.0\CompanieAeriana.exe
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\bin\Debug\net8.0\CompanieAeriana.deps.json
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\bin\Debug\net8.0\CompanieAeriana.runtimeconfig.json
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\bin\Debug\net8.0\CompanieAeriana.dll
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\bin\Debug\net8.0\CompanieAeriana.pdb
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.GeneratedMSBuildEditorConfig.editorconfig
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.AssemblyInfoInputs.cache
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.AssemblyInfo.cs
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.csproj.CoreCompileInputs.cache
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.sourcelink.json
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.dll
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\refint\CompanieAeriana.dll
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.pdb
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\CompanieAeriana.genruntimeconfig.cache
+D:\Darius\Programare\POO\Proiect Aeroport SKRRR\ProiectCalugarDragan\obj\Debug\net8.0\ref\CompanieAeriana.dll

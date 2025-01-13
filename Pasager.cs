@@ -71,11 +71,11 @@ public class Pasager
         return true;
     }
 
-    public Pasager(string nume, string CNP, List<Rezervare> istoric_rezervari, Cont cont)
+    public Pasager(string nume, string CNP, Cont cont)
     {
         this.nume = nume;
         this.CNP = CNP;
-        this.istoric_rezervari = istoric_rezervari;
+        this.istoric_rezervari = new List<Rezervare>();
         this.cont = cont;
     }
     
