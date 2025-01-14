@@ -4,7 +4,7 @@ Companie companie = new Companie("NovaGrup");
 
        
 
-void MeniuGuest()
+/*void MeniuGuest()
 {
     Console.Clear();
     Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
@@ -34,7 +34,6 @@ void MeniuLogin()
             Console.Clear();
             Console.WriteLine("\n~~~~ Creare cont ~~~~\n\n");
             
-
             string nume,prenume,cnp;
             
             Console.WriteLine("Nume: ");
@@ -84,7 +83,7 @@ void MeniuLogin()
             Meniu();
 
 
-            break; //
+            break;
         
         //intrare in cont
         case 2:
@@ -146,4 +145,8 @@ void MeniuAdmin()
 
 
 
-MeniuLogin();
+MeniuLogin();*/
+
+Transformari transformari = new Transformari();
+Zbor zbor = transformari.StringtoZbor("RO001 Oradea Iasi 431 25/04/2025 21:39 00:32 Boeing737 200 50");
+Console.WriteLine(zbor.ToString());
