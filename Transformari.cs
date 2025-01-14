@@ -27,15 +27,39 @@ public class Transformari
         return new Zbor(cod, ruta, data, durataZbor, avion, locuriDisponibile);
     }
 
+    public string ZbortoString(Zbor zbor)
+    {
+        return null;
+    }
     public Cont StringtoCont(string s)
     {
         string username = s.Split(' ')[0];
         string password = s.Split(' ')[1];
+        password = password[0..(password.Length-1)];
+        
         return new Cont(username, password);
     }
 
+    public string ConttoString(Cont cont)
+    {
+        return null;
+    }
     public Ruta StringtoRuta(string s)
     {
         return null;
     }
-}
+    public string RutatoString(Ruta ruta)
+    {
+        return null;
+    }
+
+    public Rezervare StringtoRezervare(string s)
+    {
+        return null;
+    }
+
+    public string RezervaretoString(Rezervare rezervare)
+    {
+        return null;
+    }
+ }
