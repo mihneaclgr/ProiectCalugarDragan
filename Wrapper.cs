@@ -401,7 +401,7 @@ public class Wrapper
         {
             File.WriteAllText(pathZboruri, transformari.ZbortoString(zboruri[0])+"\r");
             for (int i = 1;i <= zboruri.Count - 1;i++)
-                File.AppendText(pathZboruri);   
+                File.AppendText(transformari.ZbortoString(zboruri[i]));   
         }
         else
         {
@@ -413,7 +413,7 @@ public class Wrapper
         {
             File.WriteAllText(pathConturi, transformari.ConttoString(conturi[0])+"\r");
             for (int i = 1;i <= conturi.Count - 1;i++)
-                File.AppendText(pathConturi);   
+                File.AppendText(transformari.ConttoString(conturi[i]));   
         }
         else
         {
