@@ -4,9 +4,9 @@ namespace CompanieAeriana;
 
 public class Wrapper
 {
-    private Transformari transformari = new Transformari();
+    private static Transformari transformari = new Transformari();
     
-    public List<Zbor> CitireZboruri(string numeFisier)
+    public static List<Zbor> CitireZboruri(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] zboruri_string = File.ReadAllText(path).Split("\n");
@@ -15,12 +15,12 @@ public class Wrapper
         for (int i = 0; i < zboruri_string.Length; i++)
         {
             string s = zboruri_string[i];
-            zboruri.Append(transformari.StringtoZbor(s));
+            zboruri.Add(transformari.StringtoZbor(s));
         }
         
         return zboruri;
     } 
-    public List<Cont> CitireConturi(string numeFisier)
+    public static List<Cont> CitireConturi(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] conturi_string = File.ReadAllText(path).Split("\n");
@@ -34,7 +34,8 @@ public class Wrapper
         
         return conturi;
     }
-    public List<Ruta> CitireRute(string numeFisier)
+    
+    /*public static List<Ruta> CitireRute(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] rute_string = File.ReadAllText(path).Split("\n");
@@ -47,10 +48,20 @@ public class Wrapper
         }
         
         return rute;
+    }*/
+    
+    List<Cont> conturi = CitireConturi(@"conturi.txt");
+    List<Zbor> zboruri = CitireZboruri("Lista_zboruri.txt");
+    //List<Ruta> rute = CitireRute("rute.txt");
+
+
+    public void InitDate(Companie companie)
+    {
+        foreach (Cont c in conturi)
+            companie.AddCont(c);
+        //foreach (Ruta r in rute)
+            //companie.AddRute(r);
     }
-    
-    
-    
     
     public void MeniuLogin(Companie companie)
     {
@@ -166,11 +177,10 @@ public class Wrapper
                 break;
             
             default:
-                Console.WriteLine("Optiune invalida!");
+                //Console.WriteLine("Optiune invalida!");
                 break;
         }
     }
-    
     void MeniuGuest(Companie companie)
     {
         Console.Clear();
@@ -380,4 +390,47 @@ public class Wrapper
         
         
    }
+    public void SaveDate(Companie companie)
+    {
+        string pathZboruri, pathConturi, pathRute;
+        pathZboruri = @"..\..\..\Lista_zboruri.txt";
+        pathConturi = @"..\..\..\conturi.txt";
+        pathRute = @"..\..\..\rute.txt";
+
+        if (File.Exists(pathZboruri))
+        {
+            File.WriteAllText(pathZboruri, transformari.ZbortoString(zboruri[0])+"\r");
+            for (int i = 1;i <= zboruri.Count - 1;i++)
+                File.AppendText(pathZboruri);   
+        }
+        else
+        {
+            Console.WriteLine("Fisierul nu exista sau a fost mutat");
+        }
+        
+        
+        if (File.Exists(pathConturi))
+        {
+            File.WriteAllText(pathConturi, transformari.ConttoString(conturi[0])+"\r");
+            for (int i = 1;i <= conturi.Count - 1;i++)
+                File.AppendText(pathConturi);   
+        }
+        else
+        {
+            Console.WriteLine("Fisierul nu exista sau a fost mutat");
+        }
+        
+        
+        /*if (File.Exists(pathRute))
+        {
+            File.WriteAllText(pathRute, transformari.RutatoString(rute[0])+"\r");
+            for (int i = 1;i <= rute.Count - 1;i++)
+                File.AppendText(pathConturi);   
+        }
+        else
+        {
+            Console.WriteLine("Fisierul nu exista sau a fost mutat");
+        }*/
+
+    }
 }
