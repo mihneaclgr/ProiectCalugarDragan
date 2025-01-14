@@ -1,12 +1,14 @@
 ﻿namespace CompanieAeriana;
 
-public class Companie : TransformariZbor
+public class Companie
 {
     private string nume;
     private List<Avion> avioane;
     private List<Ruta> rute;
     private List<Rezervare> rezervari;
     private List<Cont> conturi;
+    
+    internal TransformariZbor transformariZbor;
 
     public Companie(string nume)
     {
@@ -21,27 +23,22 @@ public class Companie : TransformariZbor
     {
         this.avioane.Add(avion);
     }
-
     internal void AddRute(Ruta ruta)
     {
         this.rute.Add(ruta);
     }
-
     internal void AddRezervare(Rezervare rezervare)
     {
         this.rezervari.Add(rezervare);
     }
-
     internal void AddCont(Cont cont)
     {
         this.conturi.Add(cont);
     }
-
     internal bool ContInLista(Cont cont)
     {
         return this.conturi.Contains(cont);
     }
-
     internal bool UsernameDisponibil(string username)
     {
         foreach (Cont c in this.conturi)
@@ -49,4 +46,7 @@ public class Companie : TransformariZbor
                 return false;
         return true;
     }
+    
+    
+    
 }

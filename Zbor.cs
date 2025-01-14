@@ -14,7 +14,7 @@ public class Zbor
     {
         this.cod = cod;
         this.data = data;
-        this.oraPlecarii = DateTime.Now;
+        //this.oraPlecarii = DateTime.Now;
         this.durataZbor = durataZbor;
         this.capacitateAvion = capacitateAvion;
         this.locuriDisponibile = locuriDisponibile;
