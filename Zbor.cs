@@ -5,7 +5,6 @@ public class Zbor
     private string cod;
     internal Ruta ruta;
     internal DateTime data;
-    internal TimeSpan oraPlecarii;
     private TimeSpan durataZbor;
     private Avion avion;
     internal int locuriDisponibile;
@@ -71,6 +70,4 @@ public class Zbor
     {
         return ruta;
     }
-    
-    
 }
