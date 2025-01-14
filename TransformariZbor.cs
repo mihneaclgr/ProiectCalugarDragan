@@ -2,14 +2,14 @@
 
 public class TransformariZbor
 {
-    public string ZborToString()
+    public string ZborToString(Zbor zbor)
     {
-        string cod = "";
-        Zbor zbor = new Zbor();
-        return cod;
+        string cod = "", plecare = "", destinatie = "";
+        int distanta, capacitateAvion, locuriDisponibile;
+        DateTime dataPlecare, oraPlecare;
     }
 
-    public Zbor StringtoZbor()
+    public Zbor StringtoZbor(string zbor)
     {
         string cod = "";
         Zbor zbor = new Zbor(/*argumente*/);
