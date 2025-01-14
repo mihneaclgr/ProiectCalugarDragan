@@ -1,4 +1,6 @@
-﻿namespace CompanieAeriana;
+﻿using System.Runtime.CompilerServices;
+
+namespace CompanieAeriana;
 
 public class Companie
 {
@@ -35,7 +37,10 @@ public class Companie
     }
     internal bool ContInLista(Cont cont)
     {
-        return this.conturi.Contains(cont);
+        foreach (Cont c in this.conturi)
+            if (c.Egal(cont))
+                return true;
+        return false;
     }
     internal bool UsernameDisponibil(string username)
     {

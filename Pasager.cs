@@ -6,7 +6,6 @@ public class Pasager
 {
     private string nume,prenume;
     private string cnp;
-    private List<Rezervare> istoric_rezervari;
     private Cont cont;
     
     internal bool CNPisValid()
@@ -80,7 +79,7 @@ public class Pasager
         this.nume = nume;
         this.prenume = prenume;
         this.cnp = CNP;
-        this.istoric_rezervari = new List<Rezervare>();
+        //this.istoric_rezervari = new List<Rezervare>();
         this.cont = cont;
     }
 

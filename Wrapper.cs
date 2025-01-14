@@ -57,10 +57,12 @@ public class Wrapper
         Console.ReadKey();
         MeniuLogin(companie);
     }
-    void MeniuLogin(Companie companie)
+
+    public void MeniuLogin(Companie companie)
     {
         Console.Clear();
-        Console.WriteLine("1) Creeaza cont\n2) Intra in cont\n3) Continua fara cont\n\n");
+        Console.WriteLine("====  Compania Aeriana NovaGrup  ====\n" +
+                          "\n1) Creeaza cont\n2) Intra in cont\n3) Continua fara cont\n\n");
         
         Console.WriteLine("Alegeti o optiune: ");
         int option = Convert.ToInt32(Console.ReadLine());
@@ -104,7 +106,8 @@ public class Wrapper
                     username = Console.ReadLine();
                     if (!companie.UsernameDisponibil(username))
                     {
-                        Console.WriteLine("Doriti sa reincercati?\n1) DA\n2) NU\n\n");
+                        Console.WriteLine("Nume de utilizator deja utilizat\n" +
+                                          "Doriti sa reincercati?\n1) DA\n2) NU\n\n");
                         int option2 = Convert.ToInt32(Console.ReadLine());
                         if (option2 != 1)
                         {
@@ -116,15 +119,13 @@ public class Wrapper
                 Console.WriteLine("Parola: ");
                 parola = Console.ReadLine();
                 
-                cont = new Cont(nume, parola);
+                cont = new Cont(username, parola);
                 pasager = new Pasager(nume, prenume, cnp, cont);
                 companie.AddCont(cont);
 
                 Console.WriteLine("Cont creat cu succes!\nApasati orice tasta pentru a intra in meniul principal...");
                 Console.ReadKey();
-                Meniu(companie,cont);
-
-
+                MeniuLogin(companie);
                 break; 
             
             //intrare in cont
@@ -166,7 +167,7 @@ public class Wrapper
             
             //continua ca Guest
             case 3:
-                Console.Clear();
+                //Console.Clear();
                 MeniuGuest(companie);
                 break;
             
@@ -176,15 +177,178 @@ public class Wrapper
                 break;
         }
     }
+
+
+    void RezervariPentruPasageri()
+    {
+        Console.Clear();
+        Console.WriteLine("1) Vizualizare lista de zboruri disponibile\n" +
+                          "2) Rezervare locuri pe un zbor specific\n" +
+                          "3) Anulare rezervare\n" +
+                          "4) Vizualizare istoricul rezervărilor proprii\n" +
+                          "0) Exit");
+        int optiune = Convert.ToInt32(Console.ReadLine());
+        switch (optiune)
+        {
+            case 1:
+                VizualizareListaZboruriDisponibile();
+                break;
+            case 2:
+                RezervaLocZbor();
+                break;
+            case 3:
+                AnulareRezervare();
+                break;
+            default:
+                break;
+        }
+    }
     void Meniu(Companie companie, Cont cont)
     {
-    
+        Console.Clear();
+        Console.WriteLine($"\n~~~~ Bun venit {cont.username} ~~~~\n\n");
+        Console.WriteLine("1) Rezervari pentru pasagerii\n0) Exit");
+        int optiune = Convert.ToInt32(Console.ReadLine());
+        switch (optiune)
+        {
+            case 1:
+                RezervariPentruPasageri();
+                break;
+            default:
+                MeniuLogin(companie);
+                break;
+        }
+        Meniu(companie, cont);
     }
     void MeniuAdmin(Companie companie, Cont cont)
     {
-    
-    }
-    
-    
-    
+        int optiune;
+
+        void GestiuneZboruri()
+        {
+            void AdaugareZborNou()
+            {
+                Console.WriteLine("\n~~~~~ Adaugare zboruri ~~~~~\n");
+            }
+            void StergereZbor()
+            {
+                
+            }
+            void VizualizareListaZboruri()
+            {
+                
+            }
+            void ActualizareInformatiiDespreZboruri()
+            {
+                
+            }
+            void VizualizareRuteDisponibile()
+            {
+                
+            }
+            void AdaugareStergereRute()
+            {
+                
+            }
+            
+            Console.Clear();
+            Console.WriteLine("\n~~~~ Gestiune Zboruri ~~~~\n\n");
+            Console.WriteLine("1) Adauga zbor nou\n2) Stergere zbor\n3) Vizualizare lista completa de zboruri\n" +
+                              "4) Actualizare informatii despre zboruri\n5) Vizualizare rute disponibile\n" +
+                              "6) Adaugare\\stergere rute\n0) Exit");
+            Console.WriteLine("Optiunea dvs...");
+            optiune = Convert.ToInt32(Console.ReadLine());
+            switch (optiune)
+            {
+                case 1:
+                    AdaugareZborNou();
+                    break;
+                case 2:
+                    StergereZbor();
+                    break;
+                case 3:
+                    VizualizareListaZboruri();
+                    break;
+                case 4:
+                    ActualizareInformatiiDespreZboruri();
+                    break;
+                case 5:
+                    VizualizareRuteDisponibile();
+                    break;
+                case 6:
+                    AdaugareStergereRute();
+                    break;
+                default:
+                    MeniuAdmin(companie, cont);
+                    break;
+            }
+        }
+        void Rapoarte()
+        {
+            void VizualizareZborPopular()
+            {
+            }
+            void VizualizareVenituriZbor()
+            {
+            }
+            void GenerareRaportZilnic()
+            {
+            } 
+            void PlatiPasager()
+            {
+            }
+            Console.Clear();
+            Console.WriteLine("\n~~~~ Rapoarte si statistici ~~~~\n\n");
+            Console.WriteLine("1) Vizualizare zboruri cu cele mai multe locuri rezervate." +
+                              "\n2) Vizualizare veniturile generate de un zbor." +
+                              "\n3) Generare raport zilnic al veniturilor totale." +
+                              "\n4) Vizualizarea tuturor plăților efectuate de un pasager." + 
+                              "\n0) Exit");
+            Console.WriteLine("Optiunea dvs...");
+            optiune = Convert.ToInt32(Console.ReadLine());
+            switch (optiune)
+            {
+                case 1:
+                    VizualizareZborPopular();
+                    break;
+                case 2:
+                    VizualizareVenituriZbor();
+                    break;
+                case 3:
+                    GenerareRaportZilnic();
+                    break;
+                case 4:
+                    PlatiPasager();
+                    break;
+                default:
+                    MeniuAdmin(companie, cont);
+                    break;
+            }
+        }
+            
+            
+        Console.Clear();
+        Console.WriteLine("\n~~~~ Cont Admin ~~~~\n\n");
+        Console.WriteLine("1) Gestiune Zboruri\n2) Rapoarte si statistici" +
+                          "\n3)Rezervari pentru pasageri\n0) Exit");
+        optiune = Convert.ToInt32(Console.ReadLine());
+        switch (optiune)
+        {
+            case 1:
+                GestiuneZboruri();
+                break;
+            case 2:
+                Rapoarte();
+                break;
+            case 3:
+                RezervariPentruPasageri();
+                break;
+            default:
+                MeniuLogin(companie);
+                break;
+        }
+        MeniuAdmin(companie, cont);
+        
+        
+   }
 }
