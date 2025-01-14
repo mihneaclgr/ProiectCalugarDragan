@@ -10,4 +10,9 @@ public class Transformari
     {
         
     }
+
+    public Ruta StringtoRuta(string s)
+    {
+        
+    }
 }
