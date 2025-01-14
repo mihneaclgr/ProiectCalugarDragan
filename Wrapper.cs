@@ -2,7 +2,7 @@
 
 public class Wrapper
 {
-    private TransformariZbor transformariZbor;
+    private Transformari transformariZbor;
     List<Zbor> CitireZboruri(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
@@ -26,7 +26,7 @@ public class Wrapper
         for (int i = 0; i < conturi_string.Length; i++)
         {
             string s = conturi_string[i];
-           conturi.Append(transformariZbor.StringtoZbor(s));
+           conturi.Append(transformariZbor.StringtoCont(s));
         }
         
         return conturi;

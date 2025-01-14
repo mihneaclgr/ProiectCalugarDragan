@@ -9,16 +9,7 @@ void MeniuGuest()
     Console.Clear();
     Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
     Console.WriteLine("Lista zborurilor disponibile:\n");
-
-    int i = 0;
-    foreach (Zbor zbor in zboruri)
-    {
-        i++;
-        Console.WriteLine($"{i})\n      " +
-                          $"{zbor.GetRuta().getPlecareDin()} - {zbor.GetRuta().getDestinatie()}\n"+
-                          $"In data de: {zbor.data.ToString()} la ora {zbor.data.TimeOfDay.ToString()}\n"+
-                          $"Locuri disponibile: {zbor.locuriDisponibile}\n");
-    }
+    
     
     Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
     Console.ReadKey();
