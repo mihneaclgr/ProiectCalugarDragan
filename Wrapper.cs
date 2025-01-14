@@ -5,7 +5,6 @@ namespace CompanieAeriana;
 public class Wrapper
 {
     private Transformari transformari = new Transformari();
-    //public Companie companie;
     
     public List<Zbor> CitireZboruri(string numeFisier)
     {
@@ -177,7 +176,8 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
         Console.WriteLine("Lista zborurilor disponibile:\n");
-    
+        //aici zboruri disponibile
+        
     
         Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
         Console.ReadKey();
@@ -188,15 +188,17 @@ public class Wrapper
 
         void VizualizareListaZboruriDisponibile()
         {
-            
+            //dragan
+            //si la guest traba pus asta
+            //un zbor e disponibil daca sunt locuri disponibile si ora de plecare e in viitor
         }
         void RezervaLocZbor()
         {
-            
+            //eu
         }
         void AnulareRezervare()
         {
-            
+            //eu
         }
         
         Console.Clear();
@@ -250,27 +252,28 @@ public class Wrapper
         {
             void AdaugareZborNou()
             {
+                //dragan
                 Console.WriteLine("\n~~~~~ Adaugare zboruri ~~~~~\n");
             }
             void StergereZbor()
             {
-                
+                //dragan
             }
             void VizualizareListaZboruri()
             {
-                
+                //dragan
             }
             void ActualizareInformatiiDespreZboruri()
             {
-                
+                //eu
             }
             void VizualizareRuteDisponibile()
             {
-                
+                //dragan
             }
             void AdaugareStergereRute()
             {
-                
+                //eu
             }
             
             Console.Clear();
@@ -309,15 +312,19 @@ public class Wrapper
         {
             void VizualizareZborPopular()
             {
+                //eu
             }
             void VizualizareVenituriZbor()
             {
+                //dragan
             }
             void GenerareRaportZilnic()
             {
+                //eu
             } 
             void PlatiPasager()
             {
+                //dragan
             }
             Console.Clear();
             Console.WriteLine("\n~~~~ Rapoarte si statistici ~~~~\n\n");
