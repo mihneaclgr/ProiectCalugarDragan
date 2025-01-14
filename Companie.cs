@@ -35,6 +35,8 @@ public class Companie
     {
         this.conturi.Add(cont);
     }
+    
+    
     internal bool ContInLista(Cont cont)
     {
         foreach (Cont c in this.conturi)

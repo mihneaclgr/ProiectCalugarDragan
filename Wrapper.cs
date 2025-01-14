@@ -1,9 +1,13 @@
-﻿namespace CompanieAeriana;
+﻿using System.Runtime.CompilerServices;
+
+namespace CompanieAeriana;
 
 public class Wrapper
 {
-    private Transformari transformari;
-    List<Zbor> CitireZboruri(string numeFisier)
+    private Transformari transformari = new Transformari();
+    //public Companie companie;
+    
+    public List<Zbor> CitireZboruri(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] zboruri_string = File.ReadAllText(path).Split("\n");
@@ -17,7 +21,7 @@ public class Wrapper
         
         return zboruri;
     } 
-    List<Cont> CitireConturi(string numeFisier)
+    public List<Cont> CitireConturi(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] conturi_string = File.ReadAllText(path).Split("\n");
@@ -26,12 +30,12 @@ public class Wrapper
         for (int i = 0; i < conturi_string.Length; i++)
         {
             string s = conturi_string[i];
-           conturi.Append(transformari.StringtoCont(s));
+            conturi.Add(transformari.StringtoCont(s));
         }
         
         return conturi;
     }
-    List<Ruta> CitireRute(string numeFisier)
+    public List<Ruta> CitireRute(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
         string[] rute_string = File.ReadAllText(path).Split("\n");
@@ -46,18 +50,9 @@ public class Wrapper
         return rute;
     }
     
-    void MeniuGuest(Companie companie)
-    {
-        Console.Clear();
-        Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
-        Console.WriteLine("Lista zborurilor disponibile:\n");
     
     
-        Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
-        Console.ReadKey();
-        MeniuLogin(companie);
-    }
-
+    
     public void MeniuLogin(Companie companie)
     {
         Console.Clear();
@@ -171,16 +166,39 @@ public class Wrapper
                 MeniuGuest(companie);
                 break;
             
-            
             default:
                 Console.WriteLine("Optiune invalida!");
                 break;
         }
     }
-
-
-    void RezervariPentruPasageri()
+    
+    void MeniuGuest(Companie companie)
     {
+        Console.Clear();
+        Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
+        Console.WriteLine("Lista zborurilor disponibile:\n");
+    
+    
+        Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
+        Console.ReadKey();
+        MeniuLogin(companie);
+    }
+    void RezervariPentruPasageri(Companie companie, Cont cont)
+    {
+
+        void VizualizareListaZboruriDisponibile()
+        {
+            
+        }
+        void RezervaLocZbor()
+        {
+            
+        }
+        void AnulareRezervare()
+        {
+            
+        }
+        
         Console.Clear();
         Console.WriteLine("1) Vizualizare lista de zboruri disponibile\n" +
                           "2) Rezervare locuri pe un zbor specific\n" +
@@ -200,6 +218,10 @@ public class Wrapper
                 AnulareRezervare();
                 break;
             default:
+                if (cont.username == "admin")
+                    MeniuAdmin(companie, cont);
+                else
+                    Meniu(companie, cont);
                 break;
         }
     }
@@ -212,7 +234,7 @@ public class Wrapper
         switch (optiune)
         {
             case 1:
-                RezervariPentruPasageri();
+                RezervariPentruPasageri(companie,cont);
                 break;
             default:
                 MeniuLogin(companie);
@@ -330,7 +352,7 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("\n~~~~ Cont Admin ~~~~\n\n");
         Console.WriteLine("1) Gestiune Zboruri\n2) Rapoarte si statistici" +
-                          "\n3)Rezervari pentru pasageri\n0) Exit");
+                          "\n3) Rezervari pentru pasageri\n0) Exit");
         optiune = Convert.ToInt32(Console.ReadLine());
         switch (optiune)
         {
@@ -341,7 +363,7 @@ public class Wrapper
                 Rapoarte();
                 break;
             case 3:
-                RezervariPentruPasageri();
+                RezervariPentruPasageri(companie, cont);
                 break;
             default:
                 MeniuLogin(companie);
