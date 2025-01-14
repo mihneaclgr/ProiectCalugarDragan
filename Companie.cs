@@ -7,8 +7,6 @@ public class Companie
     private List<Ruta> rute;
     private List<Rezervare> rezervari;
     private List<Cont> conturi;
-    
-    internal TransformariZbor transformariZbor;
 
     public Companie(string nume)
     {

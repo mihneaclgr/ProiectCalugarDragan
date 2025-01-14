@@ -4,10 +4,14 @@ public class Transformari
 {
     public Zbor StringtoZbor(string s)
     {
-        Zbor zbor = new Zbor();
-        return zbor;
+        
     }
     public Cont StringtoCont(string s)
+    {
+        
+    }
+
+    public Ruta StringtoRuta(string s)
     {
         
     }
