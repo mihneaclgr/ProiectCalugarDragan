@@ -1,16 +1,14 @@
 ﻿namespace CompanieAeriana;
 
-public class TransformariZbor
+public class Transformari
 {
-    public string ZborToString(Zbor zbor)
-    {
-        string cod = "";
-        return cod;
-    }
-
     public Zbor StringtoZbor(string s)
     {
         Zbor zbor = new Zbor();
         return zbor;
+    }
+    public Cont StringtoCont(string s)
+    {
+        
     }
 }

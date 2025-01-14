@@ -2,15 +2,6 @@
 
 Companie companie = new Companie("NovaGrup");
 
-List<Zbor> zboruri = new List<Zbor>();
-
-string[] zboruri_string = File.ReadAllText(@"..\..\..\Lista_zboruri.txt").Split("\n");
-
-for (int i = 0; i < zboruri_string.Length; i++)
-{
-    string s = zboruri_string[i];
-    zboruri.Append(companie.transformariZbor.StringtoZbor(s));
-}
        
 
 void MeniuGuest()
