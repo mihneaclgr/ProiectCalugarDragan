@@ -10,7 +10,8 @@ public class Zbor
     internal Ruta ruta;
     private Avion avion;
 
-    public Zbor(string cod, DateTime data, double durataZbor, int capacitateAvion, int locuriDisponibile, Ruta ruta, Avion avion)
+    public Zbor(string cod, DateTime data, double durataZbor, 
+        int capacitateAvion, int locuriDisponibile, Ruta ruta, Avion avion)
     {
         this.cod = cod;
         this.data = data;
