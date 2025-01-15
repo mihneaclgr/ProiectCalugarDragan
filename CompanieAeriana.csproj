@@ -9,8 +9,6 @@
 
     <ItemGroup>
       <None Remove="Lista_zboruri.txt~" />
-      <None Remove="Lista_zboruri.txt" />
-      <None Remove="conturi.txt" />
     </ItemGroup>
 
 </Project>
