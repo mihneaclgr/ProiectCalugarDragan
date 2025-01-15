@@ -1,4 +1,6 @@
-﻿namespace CompanieAeriana;
+﻿using System.Data.SqlTypes;
+
+namespace CompanieAeriana;
 using System.Globalization;
 
 public class Transformari
@@ -29,8 +31,8 @@ public class Transformari
 
     public string ZbortoString(Zbor zbor)
     {
-        string format = $"{zbor.getCod()} {zbor.ruta.getPlecareDin()} {zbor.ruta.getDestinatie()} {zbor.ruta.getKm()}"
-                        + $"{zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()}"
+        string format = $"{zbor.getCod()} {zbor.ruta.getPlecareDin()} {zbor.ruta.getDestinatie()} {zbor.ruta.getKm()} "
+                        + $"{zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()} "
                         + $"{zbor.getAvion().getNume()} {zbor.getAvion().getCapacitateAvion()} {zbor.locuriDisponibile}";
         
         return format;
@@ -43,7 +45,6 @@ public class Transformari
         
         return new Cont(username, password);
     }
-
     public string ConttoString(Cont cont)
     {
         string format = $"{cont.username} {cont.getPassword()}";
@@ -69,7 +70,6 @@ public class Transformari
     {
         return null;
     }
-
     public string RezervaretoString(Rezervare rezervare)
     {
         return null;
@@ -77,17 +77,11 @@ public class Transformari
 
     public Avion StringtoAvion(string s)
     {
-        string[] parts = s.Split(' ');
-        
-        string numeAvion = parts[0];
-        int capacitateAvion = int.Parse(parts[1]);
-        
-        return new Avion(numeAvion, capacitateAvion);
+        return null;
     }
-
+    
     public string AviontoString(Avion avion)
     {
-        string format = $"{avion.getNume()} {avion.getCapacitateAvion()}";
-        return format;
+        return null;
     }
  }

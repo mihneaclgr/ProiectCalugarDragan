@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+﻿using System.Numerics;
 using System.Runtime.CompilerServices;
 
 namespace CompanieAeriana;
@@ -7,61 +7,117 @@ public class Wrapper
 {
     private static Transformari transformari = new Transformari();
     
-    public static List<Zbor> CitireZboruri(string numeFisier)
+    static List<Zbor> CitireZboruri(string numeFisier)
     {
-        string path = @"..\..\..\" + numeFisier;
-        string[] zboruri_string = File.ReadAllText(path).Split("\n");
-        List<Zbor> zboruri = new List<Zbor>();
+        string path = @"..\..\..\" +numeFisier;
+        string[] zboruri_string;
+        using StreamReader fisier = new StreamReader(path);
 
-        for (int i = 0; i < zboruri_string.Length; i++)
+        if (File.Exists(path))
         {
-            string s = zboruri_string[i];
-            zboruri.Add(transformari.StringtoZbor(s));
+            zboruri_string = fisier.ReadToEnd().Split('\r');
+            if (zboruri_string[zboruri_string.Length-1] == "")
+                zboruri_string = zboruri_string.Take(zboruri_string.Length - 1).ToArray();
+
+            List<Zbor> zboruri = new List<Zbor>();
+
+            for (int i = 0; i < zboruri_string.Length; i++)
+            {
+                string s = zboruri_string[i];
+                zboruri.Add(transformari.StringtoZbor(s));
+            }
+
+            fisier.Close();
+            return zboruri;
         }
-        
-        return zboruri;
+        else 
+            return null;
+
     } 
-    public static List<Cont> CitireConturi(string numeFisier)
+    static List<Cont> CitireConturi(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
-        string[] conturi_string = File.ReadAllText(path).Split("\n");
-        List<Cont> conturi = new List<Cont>();
+        string[] conturi_string;// = File.ReadAllText(path).Split("\n");
+        using StreamReader fisier = new StreamReader(path);
 
-        for (int i = 0; i < conturi_string.Length; i++)
+        if (File.Exists(path))
         {
-            string s = conturi_string[i];
-            conturi.Add(transformari.StringtoCont(s));
+            conturi_string = fisier.ReadToEnd().Split('\r');
+            List<Cont> conturi = new List<Cont>();
+
+            for (int i = 0; i < conturi_string.Length; i++)
+            {
+                string s = conturi_string[i];
+                conturi.Add(transformari.StringtoCont(s));
+            }
+
+            fisier.Close();
+            return conturi;
         }
-        
-        return conturi;
+        else return null;
+
     }
-    
-    /*public static List<Ruta> CitireRute(string numeFisier)
+    static List<Ruta> CitireRute(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
-        string[] rute_string = File.ReadAllText(path).Split("\n");
-        List<Ruta> rute = new List<Ruta>();
+        string[] rute_string;
+        StreamReader fisier = new StreamReader(path);
 
-        for (int i = 0; i < rute_string.Length; i++)
+        if (File.Exists(path))
         {
-            string s = rute_string[i];
-            rute.Append(transformari.StringtoRuta(s));
+            rute_string = fisier.ReadToEnd().Split('\r');
+            List<Ruta> rute = new List<Ruta>();
+
+            for (int i = 0; i < rute_string.Length; i++)
+            {
+                string s = rute_string[i];
+                rute.Add(transformari.StringtoRuta(s));
+            }
+
+            fisier.Close();
+            return rute;
         }
-        
-        return rute;
-    }*/
+        else return null;
+
+    }
+    static List<Avion> CitireAvioane(string numeFisier)
+    {
+        string path = @"..\..\..\" + numeFisier;
+        string[] avioane_string;
+        StreamReader fisier = new StreamReader(path);
+
+        if (File.Exists(path))
+        {
+            avioane_string = fisier.ReadToEnd().Split("\r\n");
+            List<Avion> avioane = new List<Avion>();
+
+            for (int i = 0; i < avioane_string.Length; i++)
+            {
+                string s = avioane_string[i];
+                avioane.Add(transformari.StringtoAvion(s));
+            }
+
+            fisier.Close();
+            return avioane;
+        }
+        else return null;
+
+    }
     
     List<Cont> conturi = CitireConturi(@"conturi.txt");
     List<Zbor> zboruri = CitireZboruri("Lista_zboruri.txt");
-    //List<Ruta> rute = CitireRute("rute.txt");
+    List<Ruta> rute = CitireRute("Lista_rute.txt");
+    List<Avion> avioane = CitireAvioane("Lista_avioane.txt");
 
 
     public void InitDate(Companie companie)
     {
         foreach (Cont c in conturi)
             companie.AddCont(c);
-        //foreach (Ruta r in rute)
-            //companie.AddRute(r);
+        foreach (Ruta r in rute)
+            companie.AddRute(r);
+        foreach (Avion a in avioane)
+            companie.AddAvion(a);
     }
     
     public void MeniuLogin(Companie companie)
@@ -187,16 +243,8 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
         Console.WriteLine("Lista zborurilor disponibile:\n");
-        
         //aici zboruri disponibile
-        DateTime dataCurenta = DateTime.Now;
-        foreach (Zbor z in zboruri)
-        {
-            if (z.locuriDisponibile > 0 && z.data > dataCurenta)
-            {
-                Console.WriteLine(transformari.ZbortoString(z));
-            }
-        }
+        
     
         Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
         Console.ReadKey();
@@ -209,16 +257,7 @@ public class Wrapper
         {
             //dragan
             //si la guest traba pus asta
-            //un zbor e disponibil daca sunt locuri disponibile si data si ora de plecare sunt in viitor
-            
-            DateTime dataCurenta = DateTime.Now;
-            foreach (Zbor z in zboruri)
-            {
-                if (z.locuriDisponibile > 0 && z.data > dataCurenta)
-                {
-                    Console.WriteLine(transformari.ZbortoString(z));
-                }
-            }
+            //un zbor e disponibil daca sunt locuri disponibile si ora de plecare e in viitor
         }
         void RezervaLocZbor()
         {
@@ -281,45 +320,7 @@ public class Wrapper
             void AdaugareZborNou()
             {
                 //dragan
-                Console.Clear();
-                Console.WriteLine("\n~~~~~ Adaugare zbor nou ~~~~~\n");
-                
-                Console.WriteLine("Codul zborului: ");
-                string cod = Console.ReadLine();
-                
-                Console.WriteLine("Plecarea din: ");
-                string plecare = Console.ReadLine();
-                
-                Console.WriteLine("Destinatia: ");
-                string destinatie = Console.ReadLine();
-                
-                Console.WriteLine("Distanta(in Km): ");
-                int distantaKm = int.Parse(Console.ReadLine());
-                
-                Console.WriteLine("Data si ora plecarii: ");
-                DateTime dataOraPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                
-                Console.WriteLine("Durata zborului(hh:mm): ");
-                TimeSpan durataZbor = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
-                
-                Console.WriteLine("Numele avionului: ");
-                string numeAvion = Console.ReadLine();
-                
-                Console.WriteLine("Numarul de locuri ale avionului: ");
-                int numarLocuriAvion = int.Parse(Console.ReadLine());
-                
-                Console.WriteLine("Numarul de locuri disponibile: ");
-                int numarLocuriDisponibile = int.Parse(Console.ReadLine());
-                
-                Ruta ruta = new Ruta(plecare, destinatie, distantaKm);
-                Avion avion = new Avion(numeAvion, numarLocuriAvion);
-                Zbor zbor = new Zbor(cod, ruta, dataOraPlecare, durataZbor, avion, numarLocuriDisponibile);
-                
-                zboruri.Add(zbor);
-                
-                Console.WriteLine("\nZborul a fost adaugat cu succes!\n");
-                Console.WriteLine("Apasati orice tasta pentru a continua ...");
-                Console.ReadKey();
+                Console.WriteLine("\n~~~~~ Adaugare zboruri ~~~~~\n");
             }
             void StergereZbor()
             {
@@ -451,25 +452,53 @@ public class Wrapper
         string pathZboruri, pathConturi, pathRute;
         pathZboruri = @"..\..\..\Lista_zboruri.txt";
         pathConturi = @"..\..\..\conturi.txt";
-        pathRute = @"..\..\..\rute.txt";
+        pathRute = @"..\..\..\Lista_rute.txt";
+        
+        
 
         if (File.Exists(pathZboruri))
         {
-            File.WriteAllText(pathZboruri, transformari.ZbortoString(zboruri[0])+"\r");
-            for (int i = 1;i <= zboruri.Count - 1;i++)
-                File.AppendText(pathZboruri);   
+            File.WriteAllText(pathZboruri, "");
+            using (StreamWriter sw = File.AppendText(pathZboruri))
+            {
+                
+                //File.WriteAllText(pathZboruri, "");
+                for (int i = 0; i< zboruri.Count - 1; i++)
+                    sw.Write(transformari.ZbortoString(zboruri[i]) + "\r");
+                sw.Write(transformari.ZbortoString(zboruri[zboruri.Count-1]));
+                
+                    
+            }
         }
         else
         {
             Console.WriteLine("Fisierul nu exista sau a fost mutat");
         }
-        
-        
+
         if (File.Exists(pathConturi))
         {
-            File.WriteAllText(pathConturi, transformari.ConttoString(conturi[0])+"\r");
-            for (int i = 1;i <= conturi.Count - 1;i++)
-                File.AppendText(pathConturi);   
+            File.WriteAllText(pathConturi, "");
+            using (StreamWriter sw = File.AppendText(pathConturi))
+            {
+                for (int i = 0; i< conturi.Count - 1; i++)
+                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
+                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
+            }
+        }
+        else
+        {
+            Console.WriteLine("Fisierul nu exista sau a fost mutat");
+        }
+        
+        if (File.Exists(pathRute))
+        {
+            File.WriteAllText(pathRute, "");
+            using (StreamWriter sw = File.AppendText(pathRute))
+            {
+                for (int i = 0; i< conturi.Count - 1; i++)
+                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
+                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
+            }
         }
         else
         {
@@ -477,16 +506,7 @@ public class Wrapper
         }
         
         
-        /*if (File.Exists(pathRute))
-        {
-            File.WriteAllText(pathRute, transformari.RutatoString(rute[0])+"\r");
-            for (int i = 1;i <= rute.Count - 1;i++)
-                File.AppendText(pathConturi);   
-        }
-        else
-        {
-            Console.WriteLine("Fisierul nu exista sau a fost mutat");
-        }*/
+        
 
     }
 }
