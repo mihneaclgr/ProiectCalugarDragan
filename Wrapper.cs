@@ -138,7 +138,7 @@ public class Wrapper
             Console.WriteLine("Format invalid!");
         }
 
-        Cont cont = null;
+        Cont cont = new Cont(null,null);
         string username;
         string parola;
         switch (option)
@@ -162,7 +162,7 @@ public class Wrapper
                     Console.WriteLine("CNP: ");
                     cnp = Console.ReadLine();
                     //pasager = new Pasager(nume, prenume, cnp);
-                    if (cont.CNPisValid(cnp))
+                    if (!cont.CNPisValid(cnp))
                     {
                         Console.WriteLine("CNP invalid: \nReincercati?\n1)DA\n2)NU\nOptiunea aleasa: ");
                         int opt = Convert.ToInt32(Console.ReadLine());
@@ -284,6 +284,9 @@ public class Wrapper
                     Console.WriteLine(transformari.ZbortoString(z));
                 }
             }
+            
+            Console.WriteLine("Apasati orice tasta pentru a continua...");
+            Console.ReadKey();
         }
         void RezervaLocZbor()
         {
@@ -335,6 +338,7 @@ public class Wrapper
                 MeniuLogin(companie);
                 break;
         }
+        SaveDate(companie);
         Meniu(companie, cont);
     }
     void MeniuAdmin(Companie companie, Cont cont)

@@ -63,10 +63,10 @@ public class Cont
         if (an > DateTime.Now.Year) return false;
         
     
-        luna = int.Parse(cnp[3..5]);
+        luna = int.Parse(CNP[3..5]);
         if (luna == 0 || luna > 12) return false;
     
-        zi = int.Parse(cnp[5..7]);
+        zi = int.Parse(CNP[5..7]);
         if (zi == 0 || zi > 31) return false;
 
         if (luna == 2) //februarie, vad de an bisect
@@ -93,7 +93,7 @@ public class Cont
         cod = int.Parse(CNP[9..12]);
         if (cod == 0) return false;
 
-        control = cnp[12] - '0';
+        control = CNP[12] - '0';
         string constanta = "279146358279";
     
         int suma = 0;
