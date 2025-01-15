@@ -1,4 +1,8 @@
+﻿<<<<<<< HEAD
+﻿using System.Globalization;
+=======
 ﻿using System.Numerics;
+>>>>>>> 698b373c38daa318928cd254ccb39e43e325333c
 using System.Runtime.CompilerServices;
 
 namespace CompanieAeriana;
@@ -243,8 +247,16 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
         Console.WriteLine("Lista zborurilor disponibile:\n");
-        //aici zboruri disponibile
         
+        //aici zboruri disponibile
+        DateTime dataCurenta = DateTime.Now;
+        foreach (Zbor z in zboruri)
+        {
+            if (z.locuriDisponibile > 0 && z.data > dataCurenta)
+            {
+                Console.WriteLine(transformari.ZbortoString(z));
+            }
+        }
     
         Console.WriteLine("\n\nApasati orice tasta pentru a reveni la meniul principal ...\n\n");
         Console.ReadKey();
@@ -257,7 +269,16 @@ public class Wrapper
         {
             //dragan
             //si la guest traba pus asta
-            //un zbor e disponibil daca sunt locuri disponibile si ora de plecare e in viitor
+            //un zbor e disponibil daca sunt locuri disponibile si data si ora de plecare sunt in viitor
+            
+            DateTime dataCurenta = DateTime.Now;
+            foreach (Zbor z in zboruri)
+            {
+                if (z.locuriDisponibile > 0 && z.data > dataCurenta)
+                {
+                    Console.WriteLine(transformari.ZbortoString(z));
+                }
+            }
         }
         void RezervaLocZbor()
         {
@@ -320,7 +341,45 @@ public class Wrapper
             void AdaugareZborNou()
             {
                 //dragan
-                Console.WriteLine("\n~~~~~ Adaugare zboruri ~~~~~\n");
+                Console.Clear();
+                Console.WriteLine("\n~~~~~ Adaugare zbor nou ~~~~~\n");
+                
+                Console.WriteLine("Codul zborului: ");
+                string cod = Console.ReadLine();
+                
+                Console.WriteLine("Plecarea din: ");
+                string plecare = Console.ReadLine();
+                
+                Console.WriteLine("Destinatia: ");
+                string destinatie = Console.ReadLine();
+                
+                Console.WriteLine("Distanta(in Km): ");
+                int distantaKm = int.Parse(Console.ReadLine());
+                
+                Console.WriteLine("Data si ora plecarii: ");
+                DateTime dataOraPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                
+                Console.WriteLine("Durata zborului(hh:mm): ");
+                TimeSpan durataZbor = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
+                
+                Console.WriteLine("Numele avionului: ");
+                string numeAvion = Console.ReadLine();
+                
+                Console.WriteLine("Numarul de locuri ale avionului: ");
+                int numarLocuriAvion = int.Parse(Console.ReadLine());
+                
+                Console.WriteLine("Numarul de locuri disponibile: ");
+                int numarLocuriDisponibile = int.Parse(Console.ReadLine());
+                
+                Ruta ruta = new Ruta(plecare, destinatie, distantaKm);
+                Avion avion = new Avion(numeAvion, numarLocuriAvion);
+                Zbor zbor = new Zbor(cod, ruta, dataOraPlecare, durataZbor, avion, numarLocuriDisponibile);
+                
+                zboruri.Add(zbor);
+                
+                Console.WriteLine("\nZborul a fost adaugat cu succes!\n");
+                Console.WriteLine("Apasati orice tasta pentru a continua ...");
+                Console.ReadKey();
             }
             void StergereZbor()
             {
@@ -333,6 +392,7 @@ public class Wrapper
             void ActualizareInformatiiDespreZboruri()
             {
                 //eu
+                
             }
             void VizualizareRuteDisponibile()
             {
