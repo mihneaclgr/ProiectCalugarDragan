@@ -19,25 +19,30 @@ public class Zbor
         this.locuriDisponibile = locuriDisponibile;
     }
 
-    public static bool ValideazaCod(string cod)
+    public Zbor()
+    {
+
+    }
+
+    public bool ValideazaCod(string c)
     {
         int i;
         
-        if (cod.Length != 5)
+        if (c.Length != 5)
         {
             Console.WriteLine("Cod invalid! (codul trebuie sa aiba 5 caractere)");
             return false;
         }
 
-        if (cod[0..1] != "RO" || cod[0..1] != "IN")
+        if (c[0..2] != "RO" && c[0..2] != "IN")
         {
             Console.WriteLine("Invalid format!");
             return false;
         }
 
-        for (i = 2; i < 4; i++)
+        for (i = 2; i <= 4; i++)
         {
-            if (cod[i] < '0' || cod[i] > '9')
+            if (c[i] < '0' || c[i] > '9')
             {
                 Console.WriteLine("Invalid format!");
                 return false;
@@ -71,9 +76,9 @@ public class Zbor
         return cod;
     }
 
-    public TimeSpan getDurataZbor()
+    public string getDurataZbor()
     {
-        return durataZbor;
+        return durataZbor.Hours + ":" + durataZbor.Minutes;
     }
 
     public Avion getAvion()

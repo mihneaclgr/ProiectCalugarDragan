@@ -343,14 +343,18 @@ public class Wrapper
                 Console.Clear();
                 Console.WriteLine("\n~~~~~ Adaugare zbor nou ~~~~~\n");
                 
-                Console.WriteLine("Codul zborului: ");
-                string cod = Console.ReadLine();
-                if (Zbor.ValideazaCod(cod) == false)
+                Zbor z = new Zbor();
+                
+                int i;
+                string cod;
+                do
                 {
-                    do
+                    Console.WriteLine("Codul zborului(ROxxx | INxxx): ");
+                    cod = Console.ReadLine();
+                    if (z.ValideazaCod(cod) == false)
                     {
-                        Console.WriteLine("Codul zborului este invalid!\n\nReincercati?\n1)DA\n2)NU\n");
-                        int optiune = Convert.ToInt32(Console.ReadLine());
+                        Console.WriteLine("Cod invalid!\nReincercati?\n1)DA\n2)NU\n");
+                        optiune = Convert.ToInt32(Console.ReadLine());
                         if (optiune != 1)
                         {
                             GestiuneZboruri();
@@ -360,8 +364,8 @@ public class Wrapper
                             AdaugareZborNou();
                             break;
                         }
-                    } while (Zbor.ValideazaCod(cod) != true);
-                }
+                    }
+                } while (z.ValideazaCod(cod) != true);
                 
                 Console.WriteLine("Plecarea din: ");
                 string plecare = Console.ReadLine();
@@ -372,14 +376,62 @@ public class Wrapper
                 Console.WriteLine("Distanta(in Km): ");
                 int distantaKm = int.Parse(Console.ReadLine());
                 
+                /*
+                DateTime dataPlecare;
+                do
+                {
+                    Console.WriteLine("Data plecarii(dd/MM/yyyy): ");
+                    string inputData = Console.ReadLine();
+                    if (DateTime.TryParseExact(inputData, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataPlecare))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Data invalida!\nReincercati?\n1)DA\n2)NU\n");
+                        int optiune = Convert.ToInt32(Console.ReadLine());
+                        if (optiune != 1)
+                        {
+                            GestiuneZboruri();
+                        }
+                        else
+                        {
+                            AdaugareZborNou();
+                            break;
+                        }
+                    }
+                } while (true);
+                
+                DateTime oraPlecare = DateTime.Now;
+                string formattedOraPlecare = oraPlecare.ToString("hh:mm");
+                */
+                
                 Console.WriteLine("Data plecarii(dd/MM/yyyy): ");
-                DateTime dataPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                string dataString = Console.ReadLine();
                 
                 Console.WriteLine("Ora plecarii(hh:mm): ");
-                TimeSpan oraPlecare = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
+                string oraString = Console.ReadLine();
+                
+                DateTime dataPlecare;
+                TimeSpan oraPlecare = default;
+                DateTime data = default;
+                
+                if(DateTime.TryParseExact(dataString, "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out dataPlecare) &&
+                   TimeSpan.TryParseExact(oraString, "hh:mm", null, out oraPlecare))
+                {
+                    data = new DateTime(dataPlecare.Day, dataPlecare.Month, dataPlecare.Year, oraPlecare.Hours, oraPlecare.Minutes, 0);
+                }
                 
                 Console.WriteLine("Durata zborului(hh:mm): ");
-                TimeSpan durataZbor = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
+                string durataZborString = Console.ReadLine();
+
+                TimeSpan durataZborTimeSpan = default;
+                TimeSpan durataZbor = default;
+                
+                if(TimeSpan.TryParseExact(durataZborString, "hh:mm", null, out durataZborTimeSpan))
+                {
+                    durataZbor = new TimeSpan(durataZborTimeSpan.Hours, durataZborTimeSpan.Minutes, 0);
+                }
                 
                 Console.WriteLine("Numele avionului: ");
                 string numeAvion = Console.ReadLine();
@@ -389,8 +441,6 @@ public class Wrapper
                 
                 Console.WriteLine("Numarul de locuri disponibile: ");
                 int numarLocuriDisponibile = int.Parse(Console.ReadLine());
-                
-                DateTime data = dataPlecare.Add(oraPlecare);
                 
                 Ruta ruta = new Ruta(plecare, destinatie, distantaKm);
                 Avion avion = new Avion(numeAvion, numarLocuriAvion);
@@ -405,13 +455,81 @@ public class Wrapper
             void StergereZbor()
             {
                 //dragan
+                Console.Clear();
                 Console.WriteLine("\n~~~~~ Stergere zbor ~~~~~\n");
-                Console.WriteLine("Zborurile expirate sunt: ");
-                Console.WriteLine("Zborurile valabile sunt: ");
+                
+                List<Zbor> zboruriExpirate = new List<Zbor>();
+                Console.WriteLine("\nZborurile expirate sunt: \n");
+                foreach (Zbor z in zboruri)
+                {
+                    if (z.data < DateTime.Now)
+                    {
+                        Console.WriteLine(transformari.ZbortoString(z));
+                        zboruriExpirate.Add(z);
+                    }
+                }
+
+                if (zboruriExpirate.Count == 0)
+                {
+                    Console.WriteLine("\nNu sunt zboruri expirate!\n");
+                    Console.WriteLine("Apasati orice tasta pentru a continua ...");
+                    Console.ReadKey();
+                    return;
+                }
+                else
+                {
+                    int optiune;
+                    Console.WriteLine("Doriti sa stergeti un singur zbor expirat sau pe toate?\n1)unul singur\n2)toate\n");
+                    optiune= int.Parse(Console.ReadLine());
+                    if (optiune == 1)
+                    {
+                        Console.WriteLine("\n\nIntroduceti codul zborului: ");
+                        string cod = Console.ReadLine();
+                        bool zborGasit = false;
+
+                        for (int i = 0; i < zboruriExpirate.Count; i++)
+                        {
+                            if(zboruriExpirate[i].getCod() == cod)
+                            {
+                                zboruri.RemoveAt(i);
+                                Console.WriteLine("\nZborul a fost sters cu succes!\n");
+                                zborGasit = true;
+                                break;
+                            }
+                        }
+                        if (!zborGasit)
+                        {
+                            Console.WriteLine("\nCodul introdus nu corespunde vreounui zbor expirat!\n");
+                            Console.WriteLine("Apasati orice tasta pentru a continua ...");
+                            Console.ReadKey();
+                        }
+                    }
+                    else
+                    {
+                        foreach (Zbor z in zboruriExpirate)
+                        {
+                            zboruri.Remove(z);
+                        }
+                        Console.WriteLine("\nToate zborurile expirate au fost sterse cu succes!\n");
+                        Console.WriteLine("Apasati orice tasta pentru a continua ...");
+                        Console.ReadKey();
+                    }
+                }
             }
+            
             void VizualizareListaZboruri()
             {
                 //dragan
+                Console.Clear();
+                Console.WriteLine("\n~~~~ Vizualizare lista completa de zboruri ~~~~\n\n");
+
+                foreach (Zbor z in zboruri)
+                {
+                    Console.WriteLine(transformari.ZbortoString(z));
+                }
+                
+                Console.WriteLine("\n\nApasati orice tasta pentru a continua ...\n\n");
+                Console.ReadKey();
             }
             void ActualizareInformatiiDespreZboruri()
             {

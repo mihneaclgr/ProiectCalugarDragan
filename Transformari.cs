@@ -30,7 +30,7 @@ public class Transformari
     public string ZbortoString(Zbor zbor)
     {
         string format = $"{zbor.getCod()} {zbor.ruta.getPlecareDin()} {zbor.ruta.getDestinatie()} {zbor.ruta.getKm()}"
-                        + $" {zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()}"
+                        + $" {zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay.Hours}:{zbor.data.TimeOfDay.Minutes} {zbor.getDurataZbor()}"
                         + $" {zbor.getAvion().getNume()} {zbor.getAvion().getCapacitateAvion()} {zbor.locuriDisponibile}";
         
         return format;
