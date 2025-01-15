@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace CompanieAeriana;
 
@@ -9,7 +10,10 @@ public class Wrapper
     public static List<Zbor> CitireZboruri(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
-        string[] zboruri_string = File.ReadAllText(path).Split("\n");
+        string[] zboruri_string;// = File.ReadAllText(path).Split("\n");
+        using StreamReader fisier = new StreamReader(path);
+        zboruri_string = fisier.ReadToEnd().Split('\r');
+        
         List<Zbor> zboruri = new List<Zbor>();
 
         for (int i = 0; i < zboruri_string.Length; i++)
@@ -18,12 +22,15 @@ public class Wrapper
             zboruri.Add(transformari.StringtoZbor(s));
         }
         
+        fisier.Close();
         return zboruri;
     } 
     public static List<Cont> CitireConturi(string numeFisier)
     {
         string path = @"..\..\..\" + numeFisier;
-        string[] conturi_string = File.ReadAllText(path).Split("\n");
+        string[] conturi_string;// = File.ReadAllText(path).Split("\n");
+        using StreamReader fisier = new StreamReader(path);
+        conturi_string = fisier.ReadToEnd().Split(Environment.NewLine);
         List<Cont> conturi = new List<Cont>();
 
         for (int i = 0; i < conturi_string.Length; i++)
@@ -32,6 +39,7 @@ public class Wrapper
             conturi.Add(transformari.StringtoCont(s));
         }
         
+        fisier.Close();
         return conturi;
     }
     
@@ -395,13 +403,17 @@ public class Wrapper
         string pathZboruri, pathConturi, pathRute;
         pathZboruri = @"..\..\..\Lista_zboruri.txt";
         pathConturi = @"..\..\..\conturi.txt";
-        pathRute = @"..\..\..\rute.txt";
+        //pathRute = @"..\..\..\rute.txt";
+        
+        StreamReader zboruriFisier = new StreamReader(pathZboruri);
+        StreamReader conturiFisier = new StreamReader(pathConturi);
+        
 
         if (File.Exists(pathZboruri))
         {
             File.WriteAllText(pathZboruri, transformari.ZbortoString(zboruri[0])+"\r");
             for (int i = 1;i <= zboruri.Count - 1;i++)
-                File.AppendText(pathZboruri);   
+                File.AppendText(transformari.ZbortoString(zboruri[i]) + '\r');   
         }
         else
         {
@@ -413,7 +425,7 @@ public class Wrapper
         {
             File.WriteAllText(pathConturi, transformari.ConttoString(conturi[0])+"\r");
             for (int i = 1;i <= conturi.Count - 1;i++)
-                File.AppendText(pathConturi);   
+                File.AppendText(transformari.ConttoString(conturi[i]) + '\r');   
         }
         else
         {
@@ -431,6 +443,9 @@ public class Wrapper
         {
             Console.WriteLine("Fisierul nu exista sau a fost mutat");
         }*/
+        
+        conturiFisier.Close();
+        zboruriFisier.Close();
 
     }
 }
