@@ -244,6 +244,7 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
         Console.WriteLine("Lista zborurilor disponibile:\n");
+        
         //aici zboruri disponibile
         DateTime dataCurenta = DateTime.Now;
         foreach (Zbor z in zboruri)
@@ -275,9 +276,6 @@ public class Wrapper
                     Console.WriteLine(transformari.ZbortoString(z));
                 }
             }
-            
-            Console.WriteLine("Apasati orice tasta pentru a reveni...");
-            Console.ReadKey();
         }
         void RezervaLocZbor()
         {
@@ -342,9 +340,26 @@ public class Wrapper
                 //dragan
                 Console.Clear();
                 Console.WriteLine("\n~~~~~ Adaugare zbor nou ~~~~~\n");
-                
-                Console.WriteLine("Codul zborului: ");
+
+                Console.WriteLine("Codul zborului(ROxxx | INxxx): ");
                 string cod = Console.ReadLine();
+                if (Zbor.ValideazaCod(cod) == false)
+                {
+                    do
+                    {
+                        Console.WriteLine("Codul zborului este invalid!\n\nReincercati?\n1)DA\n2)NU\n");
+                        int optiune = Convert.ToInt32(Console.ReadLine());
+                        if (optiune != 1)
+                        {
+                            GestiuneZboruri();
+                        }
+                        else
+                        {
+                            AdaugareZborNou();
+                            break;
+                        }
+                    } while (Zbor.ValideazaCod(cod) != true);
+                }
                 
                 Console.WriteLine("Plecarea din: ");
                 string plecare = Console.ReadLine();
@@ -355,8 +370,11 @@ public class Wrapper
                 Console.WriteLine("Distanta(in Km): ");
                 int distantaKm = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("Data plecarii: ");
-                DateTime dataOraPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                Console.WriteLine("Data plecarii(dd/MM/yyyy): ");
+                DateTime dataPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                
+                Console.WriteLine("Ora plecarii(hh:mm): ");
+                TimeSpan oraPlecare = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
                 
                 Console.WriteLine("Durata zborului(hh:mm): ");
                 TimeSpan durataZbor = TimeSpan.ParseExact(Console.ReadLine(), "hh:mm", CultureInfo.InvariantCulture);
@@ -370,9 +388,11 @@ public class Wrapper
                 Console.WriteLine("Numarul de locuri disponibile: ");
                 int numarLocuriDisponibile = int.Parse(Console.ReadLine());
                 
+                DateTime data = dataPlecare.Add(oraPlecare);
+                
                 Ruta ruta = new Ruta(plecare, destinatie, distantaKm);
                 Avion avion = new Avion(numeAvion, numarLocuriAvion);
-                Zbor zbor = new Zbor(cod, ruta, dataOraPlecare, durataZbor, avion, numarLocuriDisponibile);
+                Zbor zbor = new Zbor(cod, ruta, data, durataZbor, avion, numarLocuriDisponibile);
                 
                 zboruri.Add(zbor);
                 
@@ -383,6 +403,9 @@ public class Wrapper
             void StergereZbor()
             {
                 //dragan
+                Console.WriteLine("\n~~~~~ Stergere zbor ~~~~~\n");
+                Console.WriteLine("Zborurile expirate sunt: ");
+                Console.WriteLine("Zborurile valabile sunt: ");
             }
             void VizualizareListaZboruri()
             {
@@ -511,6 +534,8 @@ public class Wrapper
         pathZboruri = @"..\..\..\Lista_zboruri.txt";
         pathConturi = @"..\..\..\conturi.txt";
         pathRute = @"..\..\..\Lista_rute.txt";
+        
+        
 
         if (File.Exists(pathZboruri))
         {
@@ -551,9 +576,9 @@ public class Wrapper
             File.WriteAllText(pathRute, "");
             using (StreamWriter sw = File.AppendText(pathRute))
             {
-                for (int i = 0; i< rute.Count - 1; i++)
-                    sw.Write(transformari.RutatoString(rute[i]) + "\r");
-                sw.Write(transformari.RutatoString(rute[rute.Count-1]));
+                for (int i = 0; i< conturi.Count - 1; i++)
+                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
+                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
             }
         }
         else
