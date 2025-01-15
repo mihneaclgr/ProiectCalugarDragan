@@ -12,12 +12,7 @@ public class Ruta
         this.destinatie = destinatie;
         this.km = km;
     }
-
-    public int getKM()
-    {
-        return km;
-    }
-
+    
     public string getPlecareDin()
     {
         return plecare;
@@ -26,5 +21,10 @@ public class Ruta
     public string getDestinatie()
     {
         return destinatie;
+    }
+    
+    public int getKm()
+    {
+        return km;
     }
 }
