@@ -5,5 +5,5 @@ Companie companie = new Companie("NovaGrup");
 Wrapper wrapper = new Wrapper();
 
 wrapper.InitDate(companie);
-//wrapper.MeniuLogin(companie);
+wrapper.MeniuLogin(companie);
 wrapper.SaveDate(companie);

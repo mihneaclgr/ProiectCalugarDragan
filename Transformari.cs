@@ -30,8 +30,8 @@ public class Transformari
     public string ZbortoString(Zbor zbor)
     {
         string format = $"{zbor.getCod()} {zbor.ruta.getPlecareDin()} {zbor.ruta.getDestinatie()} {zbor.ruta.getKm()}"
-                        + $"{zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()}"
-                        + $"{zbor.getAvion().getNume()} {zbor.getAvion().getCapacitateAvion()} {zbor.locuriDisponibile}";
+                        + $" {zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()}"
+                        + $" {zbor.getAvion().getNume()} {zbor.getAvion().getCapacitateAvion()} {zbor.locuriDisponibile}";
         
         return format;
     }
@@ -39,7 +39,7 @@ public class Transformari
     {
         string username = s.Split(' ')[0];
         string password = s.Split(' ')[1];
-        password = password[0..(password.Length-1)];
+        password = password[0..(password.Length)];
         
         return new Cont(username, password);
     }

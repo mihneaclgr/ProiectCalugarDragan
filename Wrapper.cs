@@ -275,6 +275,9 @@ public class Wrapper
                     Console.WriteLine(transformari.ZbortoString(z));
                 }
             }
+            
+            Console.WriteLine("Apasati orice tasta pentru a reveni...");
+            Console.ReadKey();
         }
         void RezervaLocZbor()
         {
@@ -352,7 +355,7 @@ public class Wrapper
                 Console.WriteLine("Distanta(in Km): ");
                 int distantaKm = int.Parse(Console.ReadLine());
                 
-                Console.WriteLine("Data si ora plecarii: ");
+                Console.WriteLine("Data plecarii: ");
                 DateTime dataOraPlecare = DateTime.ParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 
                 Console.WriteLine("Durata zborului(hh:mm): ");
@@ -508,8 +511,6 @@ public class Wrapper
         pathZboruri = @"..\..\..\Lista_zboruri.txt";
         pathConturi = @"..\..\..\conturi.txt";
         pathRute = @"..\..\..\Lista_rute.txt";
-        
-        
 
         if (File.Exists(pathZboruri))
         {
@@ -550,9 +551,9 @@ public class Wrapper
             File.WriteAllText(pathRute, "");
             using (StreamWriter sw = File.AppendText(pathRute))
             {
-                for (int i = 0; i< conturi.Count - 1; i++)
-                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
-                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
+                for (int i = 0; i< rute.Count - 1; i++)
+                    sw.Write(transformari.RutatoString(rute[i]) + "\r");
+                sw.Write(transformari.RutatoString(rute[rute.Count-1]));
             }
         }
         else
