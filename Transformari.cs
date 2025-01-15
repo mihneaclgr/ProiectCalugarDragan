@@ -35,6 +35,15 @@ public class Transformari
         
         return format;
     }
+
+    public string ZborToStringFormal(Zbor zbor)
+    {
+        string format = $"Zborul {zbor.getCod()} pleaca din {zbor.ruta.getPlecareDin()}, cu destinatia {zbor.ruta.getDestinatie()} (distanta - {zbor.ruta.getKm()})\n"
+                        + $"Data: {zbor.data:dd/MM/yyyy}, ora: {zbor.data.TimeOfDay}, durata zbor: {zbor.getDurataZbor()}\n"
+                        + $"Avion: {zbor.getAvion().getNume()} - {zbor.getAvion().getCapacitateAvion()} capacitate, din care {zbor.locuriDisponibile} disponibile\n";
+        
+        return format;
+    }
     public Cont StringtoCont(string s)
     {
         string username = s.Split(' ')[0];
