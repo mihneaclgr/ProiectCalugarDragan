@@ -16,7 +16,7 @@ public class Wrapper
 
         if (File.Exists(path))
         {
-            zboruri_string = fisier.ReadToEnd().Split('\r');
+            zboruri_string = fisier.ReadToEnd().Split('\n');
             if (zboruri_string[zboruri_string.Length-1] == "")
                 zboruri_string = zboruri_string.Take(zboruri_string.Length - 1).ToArray();
 
@@ -125,12 +125,20 @@ public class Wrapper
     {
         Console.Clear();
         Console.WriteLine("====  Compania Aeriana NovaGrup  ====\n" +
-                          "\n1) Creeaza cont\n2) Intra in cont\n3) Continua fara cont\n\n");
+                          "\n1) Creeaza cont\n2) Intra in cont\n3) Continua fara cont\n0) Exit\n");
         
         Console.WriteLine("Alegeti o optiune: ");
-        int option = Convert.ToInt32(Console.ReadLine());
+        int option = 0;
+        try
+        {
+            option = Convert.ToInt32(Console.ReadLine());
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Format invalid!");
+        }
 
-        Cont cont;
+        Cont cont = null;
         string username;
         string parola;
         switch (option)
@@ -147,21 +155,21 @@ public class Wrapper
                 nume = Console.ReadLine();
                 Console.WriteLine("Prenume: ");
                 prenume = Console.ReadLine();
-
-                Pasager pasager;
+                
+                //Pasager pasager;
                 do
                 {
                     Console.WriteLine("CNP: ");
                     cnp = Console.ReadLine();
-                    pasager = new Pasager(nume, prenume, cnp);
-                    if (!pasager.CNPisValid())
+                    //pasager = new Pasager(nume, prenume, cnp);
+                    if (cont.CNPisValid(cnp))
                     {
                         Console.WriteLine("CNP invalid: \nReincercati?\n1)DA\n2)NU\nOptiunea aleasa: ");
                         int opt = Convert.ToInt32(Console.ReadLine());
                         if (opt != 1) 
                             MeniuLogin(companie);
                     }
-                } while (!pasager.CNPisValid());
+                } while (!cont.CNPisValid(cnp));
 
                 do
                 {
@@ -182,8 +190,7 @@ public class Wrapper
                 Console.WriteLine("Parola: ");
                 parola = Console.ReadLine();
                 
-                cont = new Cont(username, parola);
-                pasager = new Pasager(nume, prenume, cnp, cont);
+                cont = new Cont(nume,prenume, cnp ,username, parola);
                 companie.AddCont(cont);
 
                 Console.WriteLine("Cont creat cu succes!\nApasati orice tasta pentru a intra in meniul principal...");
@@ -230,14 +237,15 @@ public class Wrapper
             
             //continua ca Guest
             case 3:
-                //Console.Clear();
                 MeniuGuest(companie);
                 break;
             
             default:
-                //Console.WriteLine("Optiune invalida!");
                 break;
         }
+        
+        SaveDate(companie);
+        
     }
     void MeniuGuest(Companie companie)
     {
@@ -421,7 +429,74 @@ public class Wrapper
             }
             void AdaugareStergereRute()
             {
-                //eu
+                Console.Clear();
+                Console.WriteLine("\n~~~~~ Adaugare/stergere rute ~~~~~\n");
+                Console.WriteLine("1) Adaugare\n2) Stergere\n0) Exit: ");
+                int optiune = 0;
+                try
+                {
+                    optiune = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Optiune invalida!\nApasati orice tasta pentru a continua...");
+                    Console.ReadKey();
+                    AdaugareStergereRute();
+                }
+                
+                switch (optiune)
+                {
+                    case 1:
+                        Console.Clear();
+                        Console.WriteLine("\n~~~~ Adaugare ruta ~~~~\n\nPlecare: ");
+                        string plecare,destinatie;
+                        int nrkm = 0;
+                        plecare = Console.ReadLine();
+                        Console.WriteLine("Destinatie: ");
+                        destinatie = Console.ReadLine();
+                        Console.WriteLine("Distanta (in Km): ");
+
+                        try
+                        {
+                            nrkm = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Invalid format");
+                            break;
+                        }
+                        
+                        rute.Add(new Ruta(plecare, destinatie, nrkm));
+                        
+                        break;
+                    case 2:
+                        
+                        Console.Clear();
+                        Console.WriteLine("\n~~~~ Stergere Ruta ruta ~~~~\n");
+                        int i = 0;
+                        foreach (Ruta r in rute)
+                            Console.Write($"{i++}) {transformari.RutatoString(r)}\n");
+                        Console.WriteLine("Ruta aleasa: ");
+                        optiune = -1;
+                        try
+                        {
+                            optiune = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("Invalid format");
+                            break;
+                        }
+
+                        if (optiune < 0 || optiune > rute.Count) return;
+                        
+                        rute.RemoveAt(optiune-1);
+                        Console.WriteLine("Ruta stearsa cu succes\nApasati orice tasta pentru a continua... ");
+                        Console.ReadLine();
+                        break;
+                    default:
+                        break;
+                }
             }
             
             Console.Clear();
@@ -524,9 +599,9 @@ public class Wrapper
                 MeniuLogin(companie);
                 break;
         }
+        
+        SaveDate(companie);
         MeniuAdmin(companie, cont);
-        
-        
    }
     public void SaveDate(Companie companie)
     {
@@ -545,7 +620,7 @@ public class Wrapper
                 
                 //File.WriteAllText(pathZboruri, "");
                 for (int i = 0; i< zboruri.Count - 1; i++)
-                    sw.Write(transformari.ZbortoString(zboruri[i]) + "\r");
+                    sw.Write(transformari.ZbortoString(zboruri[i]) + '\n');
                 sw.Write(transformari.ZbortoString(zboruri[zboruri.Count-1]));
                 
                     
@@ -576,9 +651,9 @@ public class Wrapper
             File.WriteAllText(pathRute, "");
             using (StreamWriter sw = File.AppendText(pathRute))
             {
-                for (int i = 0; i< conturi.Count - 1; i++)
-                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
-                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
+                for (int i = 0; i< rute.Count - 1; i++)
+                    sw.Write(transformari.RutatoString(rute[i]) + "\r");
+                sw.Write(transformari.RutatoString(rute[rute.Count-1]));
             }
         }
         else
