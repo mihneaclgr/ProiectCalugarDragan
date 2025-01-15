@@ -244,7 +244,6 @@ public class Wrapper
         Console.Clear();
         Console.WriteLine("~~~~ Bine ati venit in modul Guest ~~~~\n\n");
         Console.WriteLine("Lista zborurilor disponibile:\n");
-        
         //aici zboruri disponibile
         DateTime dataCurenta = DateTime.Now;
         foreach (Zbor z in zboruri)
@@ -276,6 +275,9 @@ public class Wrapper
                     Console.WriteLine(transformari.ZbortoString(z));
                 }
             }
+            
+            Console.WriteLine("Apasati orice tasta pentru a reveni...");
+            Console.ReadKey();
         }
         void RezervaLocZbor()
         {
@@ -340,8 +342,8 @@ public class Wrapper
                 //dragan
                 Console.Clear();
                 Console.WriteLine("\n~~~~~ Adaugare zbor nou ~~~~~\n");
-
-                Console.WriteLine("Codul zborului(ROxxx | INxxx): ");
+                
+                Console.WriteLine("Codul zborului: ");
                 string cod = Console.ReadLine();
                 if (Zbor.ValideazaCod(cod) == false)
                 {
@@ -576,9 +578,9 @@ public class Wrapper
             File.WriteAllText(pathRute, "");
             using (StreamWriter sw = File.AppendText(pathRute))
             {
-                for (int i = 0; i< conturi.Count - 1; i++)
-                    sw.Write(transformari.ConttoString(conturi[i]) + "\r");
-                sw.Write(transformari.ConttoString(conturi[conturi.Count-1]));
+                for (int i = 0; i< rute.Count - 1; i++)
+                    sw.Write(transformari.RutatoString(rute[i]) + "\r");
+                sw.Write(transformari.RutatoString(rute[rute.Count-1]));
             }
         }
         else
