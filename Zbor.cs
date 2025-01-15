@@ -19,7 +19,7 @@ public class Zbor
         this.locuriDisponibile = locuriDisponibile;
     }
 
-    static bool ValideazaCod(string cod)
+    public static bool ValideazaCod(string cod)
     {
         int i;
         
