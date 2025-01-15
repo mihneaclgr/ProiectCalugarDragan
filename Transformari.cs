@@ -29,7 +29,11 @@ public class Transformari
 
     public string ZbortoString(Zbor zbor)
     {
-        return null;
+        string format = $"{zbor.getCod()} {zbor.ruta.getPlecareDin()} {zbor.ruta.getDestinatie()} {zbor.ruta.getKm()}"
+                        + $"{zbor.data:dd/MM/yyyy} {zbor.data.TimeOfDay} {zbor.getDurataZbor()}"
+                        + $"{zbor.getAvion().getNume()} {zbor.getAvion().getCapacitateAvion()} {zbor.locuriDisponibile}";
+        
+        return format;
     }
     public Cont StringtoCont(string s)
     {
@@ -42,15 +46,23 @@ public class Transformari
 
     public string ConttoString(Cont cont)
     {
-        return null;
+        string format = $"{cont.username} {cont.getPassword()}";
+        return format;
     }
     public Ruta StringtoRuta(string s)
     {
-        return null;
+        string[] parts = s.Split(' ');
+        
+        string plecare = parts[0];
+        string destinatie = parts[1];
+        int Km = int.Parse(parts[2]);
+        
+        return new Ruta(plecare, destinatie, Km);
     }
     public string RutatoString(Ruta ruta)
     {
-        return null;
+        string format = $"{ruta.getPlecareDin()} {ruta.getDestinatie()} {ruta.getKm()}";
+        return format;
     }
 
     public Rezervare StringtoRezervare(string s)

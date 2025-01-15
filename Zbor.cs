@@ -19,11 +19,6 @@ public class Zbor
         this.locuriDisponibile = locuriDisponibile;
     }
 
-    public Zbor()
-    {
-        
-    }
-
     static bool ValideazaCod(string cod)
     {
         int i;
@@ -56,18 +51,33 @@ public class Zbor
     {
         if (cod[0..1] == "RO")
         {
-            return 50 + 0.5 * ruta.getKM();
+            return 50 + 0.5 * ruta.getKm();
         }
         else if (cod[0..1] == "IN")
         {
-            return 200 + ruta.getKM();
+            return 200 + ruta.getKm();
         }
 
         return -1;
     }
 
-    public Ruta GetRuta()
+    public Ruta getRuta()
     {
         return ruta;
+    }
+
+    public string getCod()
+    {
+        return cod;
+    }
+
+    public TimeSpan getDurataZbor()
+    {
+        return durataZbor;
+    }
+
+    public Avion getAvion()
+    {
+        return avion;
     }
 }

@@ -10,4 +10,14 @@ public class Avion
         this.nume = nume;
         this.capacitateAvion = nr_locuri;
     }
+
+    public string getNume()
+    {
+        return nume;
+    }
+
+    public int getCapacitateAvion()
+    {
+        return capacitateAvion;
+    }
 }

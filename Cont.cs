@@ -20,5 +20,9 @@ public class Cont
     {
         return c.username == this.username && c.password == this.password;
     }
-    
+
+    public string getPassword()
+    {
+        return password;
+    }
 }
